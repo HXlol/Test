@@ -1,3 +1,4 @@
+//the app.js can run in the mongo by using the code mongo localhost:27017/hxdata E:/monfodb/app.js,the result should show in the mmongo.
 
 
 
@@ -17,19 +18,18 @@ print('Total user:'+total_user);
 
 
 print('Query3:What was the earliest and lastet data (YYYY-MM-DD HH:MM:SS) that a message was published?');
-var earliest_date = db.userhx.find({},{"timestamp":1,"_id":0}).sort({timestamp: 1}).limit(1);
+var edate = db.userhx.find({},{"timestamp":1,"_id":0}).sort({timestamp: 1}).limit(1);
 var num1=0;
 var num2=0;
-if (earliest_date.length()) {
-	e = earliest_date[0];
+if (edate.length()) {
+	e = edate[0];
 	print( 'Earliest date: '+ e['timestamp']);
 	num1=e['timestamp'];
 }
-
-var latest_date = db.userhx.find({},{"timestamp":1,"_id":0}).sort({timestamp: -1}).limit(1);
-if (latest_date.length()){
-   l = latest_date[0];
-   print('Latest_date: '+ l['timestamp']);
+var ldate = db.userhx.find({},{"timestamp":1,"_id":0}).sort({timestamp: -1}).limit(1);
+if (ldate.length()){
+   l = ldate[0];
+   print('Latestdate: '+ l['timestamp']);
    num2=l['timestamp'];
 }
 
@@ -45,7 +45,7 @@ function getTime(day){
 
 var d1 = getTime(num1);
 var d2 = getTime(num2);
-var mean=(date2-date1)/total_tweets;
+var mean=(d2-d1)/total_tweets;
 print('Delta meantime = '+mean);
 
 
@@ -62,9 +62,8 @@ print(c/total_tweets);
 
 
 
-print(seperate_line);
-print('Query7: What is the average number of hashtags(#)used within a message?');
 
+print('Query7: What is the average number of hashtags(#)used within a message?');
 var b = 0;
 var re = new RegExp("#");
 var a=0;
